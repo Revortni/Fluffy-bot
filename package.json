@@ -1,0 +1,20 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "a bot for discord app",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "discord"
+  ],
+  "author": "revortni",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "ytdl-core": "^0.26.3"
+  }
+}
