@@ -78,7 +78,36 @@ bot.on('message',async message=>{
     message.channel.send("Purr purr??");
   }
 
-  
+  if(command === "reminder") {
+    if(args.length === 0){
+      message.channel.send("Enter the command in format, \n !reminder hr:min:sec:\"message\"");
+      return;
+    }
+    let time = args.shift().split(":").map((x)=>{
+      if(isNaN(x)){
+        return x;
+      } 
+      return parseInt(x);
+    });
+    let length =time.length;
+    let txt = time[length-1];
+    for(let i = 0;i<(4-length);i++){
+        time.unshift(0);
+    }
+    let total = time[2]+time[1]*60+time[0]*3600;
+    if(total===0){
+      message.reply("You forgot to enter the time or screwed up the format");
+    }
+    message.delete();
+    message.reply("Your reminder has been set for "+time.slice(0,3).join(":"))
+           .then((msg)=>{
+            msg.delete(5000);
+          })
+          .catch(err=>console.log(err));
+    let clear = setTimeout(function(){
+      message.reply("Reminder: "+txt);
+    },total*1000);
+  }
 
 });
 
