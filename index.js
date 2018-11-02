@@ -7,7 +7,7 @@ config.token = process.env.token;
 bot.on("ready", () => {
   // This event will run if the bot starts, and logs in, successfully.
   console.log(`Bot has started with ${bot.users.size} users, in ${bot.channels.size} channels.`); 
-  bot.user.setActivity(`with people's minds`);
+  bot.user.setActivity(`with  ${bot.users.size} people's minds`);
 });
 
 bot.on('message',async message=>{
@@ -66,12 +66,8 @@ bot.on('message',async message=>{
     message.channel.send(msg);
   }
 
-  if(command === "win") {
-    message.channel.send("You dream big huh?");
-  }
-
   if(command === "joke") {
-
+    message.channel.send("I'm not in the mood right now. Maybe later.'");
   }
 
   if(command === "pat") {
@@ -83,6 +79,15 @@ bot.on('message',async message=>{
       message.channel.send("Enter the command in format, \n !reminder hr:min:sec:\"message\"");
       return;
     }
+    let check = (x) =>{
+      if(x<10){
+        return "0";
+      } else {
+        return "";
+      }
+    }
+
+    try{
     let time = args.shift().split(":").map((x)=>{
       if(isNaN(x)){
         return x;
@@ -99,14 +104,22 @@ bot.on('message',async message=>{
       message.reply("You forgot to enter the time or screwed up the format");
     }
     message.delete();
-    message.reply("Your reminder has been set for "+time.slice(0,3).join(":"))
+    message.reply("Your reminder has been set for "+time.slice(0,3).map(x=>{
+      return(check(x)+x.toString());
+    }).join(":"))
            .then((msg)=>{
             msg.delete(5000);
           })
-          .catch(err=>console.log(err));
+           .catch(err=>console.log(err));
     let clear = setTimeout(function(){
       message.reply("Reminder: "+txt);
     },total*1000);
+    }
+    catch(err){
+      console.log(err);
+      message.channel.send("Enter the command in format, \n !reminder hr:min:sec:\"message\"");
+      return;
+    }
   }
 
 });
