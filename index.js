@@ -106,7 +106,7 @@ bot.on('message',async message=>{
     message.delete();
     message.reply("Your reminder has been set for "+time.slice(0,3).map(x=>{
       return(check(x)+x.toString());
-    }).join(":"))
+    }).join(":")+"\n \""+txt+"\"")
            .then((msg)=>{
             msg.delete(5000);
           })
