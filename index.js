@@ -100,11 +100,11 @@ bot.on('message',async message=>{
         time.unshift(0);
     }
     let total = time[2]+time[1]*60+time[0]*3600;
-    for(a in time){
-      if(isNaN(a)){
+    time.forEach(x=>{
+      if(isNaN(x)){
         throw "Time parameter is not a number";
       }
-    }
+    })
     if(total===0){
       message.reply("You forgot to enter the time or screwed up the format");
     }
